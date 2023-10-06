@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Random</title>
+</head>
+<body>
+	<div id="number" style="background-color: rgba(255, 255, 255, 0);padding-top:30vh;font-size:40vh;text-align:center;font-family:'Courier New',monospace;font-weight:700;letter-spacing:-15px">0000</div>
+</body>
+<script type="text/javascript">
+	let min = 100;
+	let max = 9999;
+	let speed = 8;
+	let results = [];
+	let run = false;
+	let count = 0;  		
+	function step() {
+		let current = document.getElementById("number").innerHTML;
+		if(run || results.includes(current)){
+			if(count % speed == 0){
+				document.getElementById("number").innerHTML = (Math.round(Math.random() * 8999) + 1);
+			}
+			++count;
+			window.requestAnimationFrame(step);
+		}else{
+			count = 0;
+			results.push(current);
+		}
+	}
+	document.onkeyup = function (event) {
+		if (event.which == 32 || event.keyCode == 32) {
+			run = !run;
+			if(run){
+				window.requestAnimationFrame(step);
+			}
+		}else if (event.which == 13 || event.keyCode == 13) {
+			if(!run){
+				document.getElementById("number").innerHTML = '0000';
+			}
+		}
+	};
+</script>
+</html>
